@@ -13,5 +13,8 @@ ingress:
 
 secrets: {}
 
+imagePullSecrets:
+  - name: __ImagePullSecret__
+
 envvariables:
   servicesettings__message: __ServiceMessage__
