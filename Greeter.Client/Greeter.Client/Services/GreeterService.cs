@@ -44,8 +44,11 @@ namespace Greeter.Client
                      int count = 0;
                      do
                      {
-                         var greeting = await GetGreetingAsync();
-                         ShowGreeting(greeting);
+                         Task.Run(async () =>
+                         {
+                             var greeting = await GetGreetingAsync();
+                             ShowGreeting(greeting);
+                         });
                          await Task.Delay(interval, ct);
                          count++;
                      } while (!ct.IsCancellationRequested && (polling == 0 || (polling > 0 && count < polling)));
@@ -73,20 +76,24 @@ namespace Greeter.Client
             return null;
         }
 
+        private object lockobj = new object();
         private void ShowGreeting(GreetingDto greeting)
         {
-            //Console.WriteLine(greeting);
+            lock (lockobj)
+            {
+                //Console.WriteLine(greeting);
 
-            Console.ResetColor();
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write($"{greeting.Message}");
-            Console.ForegroundColor = GetForegroundColorForContainer(greeting.HostName);
-            Console.Write($" - {greeting.HostName}");
-            Console.ForegroundColor = GetForegroundColorForVersion(greeting.ServiceVersion);
-            Console.Write($" [{greeting.ServiceVersion}]");
-            Console.ResetColor();
-            Console.WriteLine($" @ {greeting.TimeStamp.DateTime.ToString() } ");
-            Console.ResetColor();
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"{greeting.Message}");
+                Console.ForegroundColor = GetForegroundColorForContainer(greeting.HostName);
+                Console.Write($" - {greeting.HostName}");
+                Console.ForegroundColor = GetForegroundColorForVersion(greeting.ServiceVersion);
+                Console.Write($" [{greeting.ServiceVersion}]");
+                Console.ResetColor();
+                Console.WriteLine($" @ {greeting.TimeStamp.DateTime.ToString() } ");
+                Console.ResetColor();
+            }
         }
 
         private ConsoleColor[] predefinedForegroundColors = new ConsoleColor[] { ConsoleColor.Green, ConsoleColor.Cyan, ConsoleColor.Yellow, ConsoleColor.Red, ConsoleColor.Magenta };
