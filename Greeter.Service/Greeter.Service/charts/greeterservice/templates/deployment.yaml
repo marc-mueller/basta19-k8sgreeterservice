@@ -45,6 +45,9 @@ spec:
             httpGet:
               path: /api/status
               port: http
+			  initialDelaySeconds: 5
+              periodSeconds: 5
+              successThreshold: 1
           {{- end }}
           env:
             {{- $root := . }}
