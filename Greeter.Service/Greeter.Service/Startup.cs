@@ -14,12 +14,22 @@ namespace Greeter.Service
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            this.CurrentEnvironment = env ?? throw new ArgumentNullException(nameof(env));
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(this.CurrentEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{this.CurrentEnvironment.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"appsettings.Secrets.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
