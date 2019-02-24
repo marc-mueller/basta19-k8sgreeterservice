@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -79,13 +80,37 @@ namespace Greeter.Client
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{greeting.Message}");
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = GetForegroundColorForContainer(greeting.HostName);
             Console.Write($" - {greeting.HostName}");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = GetForegroundColorForVersion(greeting.ServiceVersion);
             Console.Write($" [{greeting.ServiceVersion}]");
             Console.ResetColor();
             Console.WriteLine($" @ {greeting.TimeStamp.DateTime.ToString() } ");
             Console.ResetColor();
+        }
+
+        private ConsoleColor[] predefinedForegroundColors = new ConsoleColor[] { ConsoleColor.Green, ConsoleColor.Cyan, ConsoleColor.Yellow, ConsoleColor.Red, ConsoleColor.Magenta };
+
+        private Dictionary<string, ConsoleColor> containerColors = new Dictionary<string, ConsoleColor>();
+        private ConsoleColor GetForegroundColorForContainer(string hostName)
+        {
+            if (!containerColors.ContainsKey(hostName))
+            {
+                containerColors.Add(hostName, predefinedForegroundColors[(containerColors.Count + 1) % predefinedForegroundColors.Length] );
+            }
+
+            return containerColors[hostName];
+        }
+
+        private Dictionary<string, ConsoleColor> versionColors = new Dictionary<string, ConsoleColor>();
+        private ConsoleColor GetForegroundColorForVersion(string version)
+        {
+            if (!versionColors.ContainsKey(version))
+            {
+                versionColors.Add(version, predefinedForegroundColors[(versionColors.Count + 1) % predefinedForegroundColors.Length]);
+            }
+
+            return versionColors[version];
         }
     }
 }
