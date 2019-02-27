@@ -14,7 +14,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 25%
-      maxUnavailable: 50%
+      maxUnavailable: 25%
   selector:
     matchLabels:
       app: {{ template "greeterservice.name" . }}
