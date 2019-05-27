@@ -30,7 +30,7 @@ namespace Greeter.Service.Controllers
         {
             var greeting = new GreetingDto()
             {
-                Message = configuration["ServiceSettings:Message"],
+                Message = "Demo Prep: " + configuration["ServiceSettings:Message"],
                 HostName = Environment.MachineName,
                 ServiceVersion = this.GetType().Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>().Version,
                 TimeStamp = DateTimeOffset.Now
