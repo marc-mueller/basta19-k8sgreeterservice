@@ -1,8 +1,8 @@
-FROM microsoft/dotnet:2.2.2-aspnetcore-runtime AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.2.104-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 COPY ["Greeter.Service/Greeter.Service.csproj", "Greeter.Service/"]
 RUN dotnet restore "Greeter.Service/Greeter.Service.csproj"
