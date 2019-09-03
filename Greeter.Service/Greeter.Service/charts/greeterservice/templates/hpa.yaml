@@ -5,7 +5,7 @@ metadata:
   name: {{ template "greeterservice.fullname" . }}
 spec:
   maxReplicas: 10
-  minReplicas: 1
+  minReplicas: 2
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
