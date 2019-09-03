@@ -20,7 +20,7 @@ namespace Greeter.Client
         {
             this.client = new HttpClient();
             client.BaseAddress = serviceHostBaseUri ?? throw new ArgumentNullException(nameof(serviceHostBaseUri));
-            client.Timeout = new TimeSpan(0, 0, 10);
+            client.Timeout = new TimeSpan(0, 2, 0);
 
             this.polling = polling;
             if (this.polling < 0)
