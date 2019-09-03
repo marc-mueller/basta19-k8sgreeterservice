@@ -30,13 +30,39 @@ namespace Greeter.Service.Controllers
         {
             var greeting = new GreetingDto()
             {
-                Message = "Demo:" + configuration["ServiceSettings:Message"],
+                Message = "Demo:" + configuration["ServiceSettings:Message"] + $"Prime Number: {FindPrimeNumber(1000)}",
                 HostName = Environment.MachineName,
                 ServiceVersion = this.GetType().Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>().Version,
                 TimeStamp = DateTimeOffset.Now
             };
 
             return Ok(greeting);
+        }
+
+        public long FindPrimeNumber(int n)
+        {
+            int count = 0;
+            long a = 2;
+            while (count < n)
+            {
+                long b = 2;
+                int prime = 1;// to check if found a prime
+                while (b * b <= a)
+                {
+                    if (a % b == 0)
+                    {
+                        prime = 0;
+                        break;
+                    }
+                    b++;
+                }
+                if (prime > 0)
+                {
+                    count++;
+                }
+                a++;
+            }
+            return (--a);
         }
     }
 }
