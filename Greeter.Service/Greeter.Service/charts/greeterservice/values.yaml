@@ -35,7 +35,7 @@ ingress:
         - VALUE_TO_OVERRIDE
 
 hpa:
-  enable: true
+  enabled: true
 
 
 secrets: {}
