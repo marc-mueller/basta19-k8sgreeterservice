@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 fullnameOverride: greeterservice
-replicaCount: 1
+replicaCount: 3
 image:
   repository: VALUE_TO_OVERRIDE
   tag: latest
@@ -36,6 +36,9 @@ ingress:
 
 hpa:
   enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  averageCpuUtilization: 50
 
 
 secrets: {}

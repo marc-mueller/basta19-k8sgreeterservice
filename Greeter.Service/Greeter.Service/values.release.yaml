@@ -18,3 +18,9 @@ imagePullSecrets:
 
 envvariables:
   servicesettings__message: __ServiceMessage__
+
+hpa:
+  enabled: __hpaEnabled__
+  minReplicas: __hpaMinReplicas__
+  maxReplicas: __hpaMaxReplicas__
+  averageCpuUtilization: __hpaAverageCpuUtilization__
