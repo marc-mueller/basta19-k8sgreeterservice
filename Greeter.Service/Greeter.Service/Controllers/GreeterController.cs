@@ -30,7 +30,7 @@ namespace Greeter.Service.Controllers
         {
             var greeting = new GreetingDto()
             {
-                Message = "Demo Prep:" + configuration["ServiceSettings:Message"],
+                Message = "Demo:" + configuration["ServiceSettings:Message"],
                 //Message = "Demo:" + configuration["ServiceSettings:Message"] + $" Prime Number: {FindPrimeNumber(5000)}",
                 HostName = Environment.MachineName,
                 ServiceVersion = this.GetType().Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>().Version,
