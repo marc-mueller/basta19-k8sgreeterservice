@@ -13,8 +13,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: {{ template "greeterservice.name" . }}
@@ -48,6 +48,7 @@ spec:
 			  initialDelaySeconds: 5
               periodSeconds: 5
               successThreshold: 1
+              timeoutSeconds: 30
           {{- end }}
           env:
             {{- $root := . }}
